@@ -1,0 +1,440 @@
+\documentclass[14pt]{article}
+\usepackage{bussproofs}
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{enumitem}
+\usepackage{amssymb}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage[utf8]{inputenc}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{listings}
+\usepackage[table,dvipsnames]{xcolor}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{polynom}
+					% Para personalizar listas
+\usepackage{paracol}
+\usepackage{csquotes} % Context sensitive quotation facilities
+\usepackage{dirtytalk}											% Citas sencillas
+\usepackage{qtree}
+\usepackage{varwidth} %Para centrar listas
+%\columnseprulecolor{}
+\usepackage[spanish,english]{babel}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{amsfonts}
+\usepackage{tikz}
+
+ \usepackage{pgfplots, alphalph}
+    \usepgfplotslibrary{groupplots}
+    \pagenumbering{gobble}
+
+%------------------------
+
+\begin{document} 
+
+\setlength{\parindent}{0cm} %Indentation 0
+\rule{\linewidth}{0.1mm}
+\begin{center}
+    \begin{minipage}{2.5cm}
+    	\begin{center}
+	    \includegraphics[height=3.4cm]{logo_unam.png}
+    	\end{center}
+    \end{minipage}\hfill
+    %--------------
+    \begin{minipage}{10cm}
+    	\begin{center}
+    	\textbf{ Universidad Nacional Autónoma de México}\\[0.1cm]
+        \textbf{Facultad de Ciencias}\\[0.1cm]
+        \textbf{Lenguajes de Programación}\\[0.1cm]
+        \textbf{2025-1}\\[0.1cm]
+        \textbf{Tarea 03} \\[0.1cm]
+
+        Victoria Morales Ricardo Maximiliano\\
+        Sánchez Estrada Alejandro\\
+        Suárez Ortiz Joshua Daniel\\
+         
+        %\textbf{Fecha de entrega: }
+    	\end{center}
+    \end{minipage}\hfill
+    %--------------
+    \begin{minipage}{3cm}
+    	\begin{center}
+    	\includegraphics[height=3.6cm]{Logo_FC.png}
+    	\end{center}
+    \end{minipage}
+\end{center}
+\rule{\linewidth}{0.1mm}
+\vspace{1mm}
+%---------------------------------------------------------
+
+ 
+Ejercicios\\
+
+\begin{enumerate}
+    \item[1]  Dadas las siguientes expresiones en sintaxis concreta de nuestro lenguaje **MiniLisp** (a) obtener su sintaxis abstracta, (b) evaluarlas usando las reglas de semántica natural y (c) evaluarlas usando las reglas de semántica estructural. Todas las reglas las podrán consultar en la [Nota de Clase 6]\\(https://lambdasspace.github.io/LDP/notas/ldpn06.pdf) y la [Nota de Clase 7]\\
+    (https://lambdasspace.github.io/LDP/notas/ldpn07.pdf).\\
+
+    
+   -  $`(- (+ 20~3) (- -18 (+ 50~20)))`$\\
+   -  $`(not (+ 1 (- 3 (+ -8~1))))`$\\
+   -  $`(not (not (+ 3~5)))`$\\
+
+   1.-$(- (+$ $20$ $3$ $) (-$ $-18$ $(+$ $50$ $20$ $)))$\\
+
+\begin{tikzpicture}
+\node {$(- (+$ $20$ $3$ $) (-$ $-18$ $(+$ $50$ $20$ $)))$}
+child {node {$<S>$}
+    child {node {$<Expr>$}
+        child {node {$( - < Expr > < Expr >)$}[sibling distance=4cm]
+            child {node {$($}}
+            child {node {$-$}}
+            child {node {$<Expr>$}[sibling distance=8cm]
+                child {node {$( + < Expr > < Expr >)$}}
+            }
+            child {node {$<Expr>$}
+                child{node{$( - < Expr > < Expr >)$}}
+            }
+            child {node {$)$}}
+        }
+    }
+}
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\node {$( + < Expr > < Expr >)$}[sibling distance=4cm]
+    child {node {$($}}
+    child {node {$+$}}
+    child {node {$<Expr>$}
+        child {node {$<Int>$}
+            child {node {$<N>$}[sibling distance=1cm]
+                child {node {$<D>$}
+                    child {node {$2$}}
+                }
+                child {node {$<N>$}[sibling distance=1cm]
+                    child {node {$0$}}
+                }
+            }
+        }
+    }
+    child {node {$<Expr>$}
+        child {node {$Int$}
+            child {node {$<N>$}
+                child {node {$<D>$}
+                    child {node {$3$}}
+                }
+            }
+        }
+    }
+    child {node {$)$}}
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\node {$( - < Expr > < Expr >)$}[sibling distance=4cm]
+    child {node {$($}}
+    child {node {$-$}}
+    child {node {$<Expr>$}
+        child {node {$<Int>$}[sibling distance=1cm]
+            child {node {$-$}}
+            child {node {$<M>$}[sibling distance=1cm]
+                child {node {$<D>$}
+                    child {node {$1$}}
+                }
+                child {node {$<N>$}[sibling distance=1cm]
+                    child {node {$D$}
+                        child {node {$8$}}
+                    }
+                }
+            }
+        }
+    }
+    child {node {$<Expr>$}
+        child {node {$( + < Expr > < Expr >)$}}
+    }
+    child {node {$)$}}
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\node {$( + < Expr > < Expr >)$}[sibling distance=4cm]
+    child {node {$($}}
+    child {node {$+$}}
+    child {node {$<Expr>$}
+        child {node {$<Int>$}
+            child {node {$<N>$}[sibling distance=1cm]
+                child {node {$<D>$}
+                    child {node {$5$}}
+                }
+                child {node {$<N>$}[sibling distance=1cm]
+                    child {node {$0$}}
+                }
+            }
+        }
+    }
+    child {node {$<Expr>$}
+        child {node {$Int$}[sibling distance=1cm]
+            child {node {$<N>$}
+                child {node {$<D>$}
+                    child {node {$2$}}
+                }
+                child {node {$<N>$}
+                    child {node {$<D>$}
+                        child {node {$0$}}
+                    }
+                }
+            }
+        }
+    }
+    child {node {$)$}}
+\end{tikzpicture}
+
+2.-$(not (+$ $1$ $(-$ $3$ $(+$ $-8$ $1$ $))))$\\
+
+\begin{tikzpicture}
+\node{$(not (+$ $1$ $(-$ $3$ $(+$ $-8$ $1$ $))))$}
+child{node{$<S>$}
+    child{node{$<Expr>$}
+        child{node{$($}}
+        child{node{$not$}}
+        child{node{$Expr$}
+            child{node{$(+ <Expr> <Expr>)$}[sibling distance=3cm]
+                child{node{$($}}
+                child{node{$+$}}
+                child{node{$<Int>$}
+                    child{node{$<N>$}
+                        child{node{$<D>$}
+                            child{node{$1$}}
+                        }
+                    }
+                }
+                child{node{$(- <Expr> <Expr>)$}}
+                child{node{$)$}}
+            }
+        }
+        child{node{$)$}}
+    }
+}
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\node{$(- <Expr> <Expr>)$}[sibling distance=3cm]
+child{node{$($}}
+child{node{$-$}}
+child{node{$<Expr>$}
+    child{node{$<Int>$}
+        child{node{$<N>$}
+            child{node{$D$}
+                child{node{$3$}}
+            }
+        }
+    }
+}
+child{node{$<Expr>$}
+    child{node{$(+ <Expr> <Expr>)$}}
+}
+child{node{$)$}}
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\node{$(+ <Expr> <Expr>)$}[sibling distance=3cm]
+child{node{$($}}
+child{node{$+$}}
+child{node{$<Expr>$}
+    child{node{$<Int>$}
+        child{node{$-$}}
+        child{node{$<M>$}
+            child{node{$D$}
+                child{node{$8$}}
+            }
+        }
+    }
+}
+child{node{$<Expr>$}
+    child{node{$<Int>$}
+        child{node{$<N>$}
+            child{node{$<D>$}
+                child{node{$<1>$}}
+            }
+        }
+    }
+}
+child{node{$)$}}
+\end{tikzpicture}
+
+3.-$(not (not (+$ $3$ $5$ $)))$\\
+
+\begin{tikzpicture}
+\node{$(not (not (+$ $3$ $5$ $)))$}
+child{node{$<S>$}
+    child{node{$<Expr>$}
+        child{node{$($}}
+        child{node{$not$}}
+        child{node{$<Expr>$}
+            child{node{$($}}
+            child{node{$not$}}
+            child{node{$<Expr>$}
+                child{node{$($}}
+                child{node{$+$}}
+                child{node{$<Expr>$}
+                    child{node{$<Int>$}
+                        child{node{$<N>$}
+                            child{node{$<D>$}
+                                child{node{$<3>$}}
+                            }
+                        }
+                    }
+                }
+                child{node{$<Expr>$}
+                    child{node{$<Int>$}
+                        child{node{$<N>$}
+                            child{node{$<D>$}
+                                child{node{$<5>$}}
+                            }
+                        }
+                    }
+                }
+                child{node{$)$}}
+            }
+            child{node{$)$}}
+        }
+        child{node{$)$}}
+    }
+}
+\end{tikzpicture}
+
+   \item[2] Como segundo ejercicio deberán extener la batería de operaciones de **MiniLisp**, para ello deberán (a) dar la gramática libre de contexto modificada (en notación EBNF) añadiendo las nuevas construcciones del lenguaje, (b) modificar las reglas de sintaxis abstracta para considerar los nuevos constructores y finalmente (c) extender las reglas de semántica natural y estructural. En los tres casos, deberás usar la notación formal que vimos en clase.\\
+
+(a) Gramática Libre de Contexto (EBNF)\\
+
+<S> ::= <Expr>\\
+
+<Expr> ::= <Int>\\
+         | <Bool>\\
+         | (+ <Expr> <Expr>)\\
+         | (- <Expr> <Expr>)\\
+         | (* <Expr> <Expr>)\\
+         | (/ <Expr> <Expr>)\\
+         | (add1 <Expr>)\\
+         | (sub1 <Expr>)\\
+         | (sqrt <Expr>)\\
+         | (not <Expr>)\\
+
+<Int> ::= <N>\\
+        | -<M>\\
+
+<D> ::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 \\
+
+<N> ::= 0 | <D>\{<N>\} \\
+
+<M> ::= <D>\{<N>\} \\
+
+<Bool> ::= \# t| \# f \\
+
+(b) 
+
+Regla para mul: \\
+$\begin{gathered} \frac{e_1 \quad\text{ASA} \quad\quad e_2 \quad\text{ASA}}{\text{Mul}(e_1, e_2)\quad \text{ASA}} \end{gathered}$\\
+
+Regla para add1:\\
+$\begin{gathered} \frac{e \quad\text{ASA}}{\text{Add1}~\text{ASA}} \end{gathered}$\\
+
+Regla para div:\\
+$\begin{gathered} \frac{e_1 \quad\text{ASA} \quad\quad e_2 \quad\text{ASA}}{\text{Div}(e_1, e_2)\quad \text{ASA}} \end{gathered}$\\
+
+Regla para sub1:\\
+$\begin{gathered} \frac{e_1 \quad\text{ASA} \quad\quad e_2 \quad\text{ASA}}{\text{Sub1}(e_1, e_2)\quad \text{ASA}} \end{gathered}$\\
+
+Regla para sqrt:\\
+$\begin{gathered} \frac{e_1 \quad\text{ASA} \quad\quad e_2 \quad\text{ASA}}{\text{Sqrt}(e_1, e_2)\quad \text{ASA}} \end{gathered}$\\
+          
+
+(c)\\
+   - Especificar un nuevo constructor `*` para la multiplicación binaria de expresiones aritméticas. Por ejemplo:
+     
+      ```lisp
+      > (* 20 2)
+      40
+      ``` \\
+
+      $\begin{gathered} \frac{e_1 \Rightarrow \text{Num}(n_1) \quad e_2 \Rightarrow \text{Num}(n_2)}{\text{Mul}(e_1, e_2) \Rightarrow \text{Num}(n_1 * n_2)} \end{gathered}$\\
+
+    Mul( Num(20) Num(2)) = Num (20 * 2) = Num(40)\\
+    
+   - Especificar un nuevo constructor `/` para la división binaria de expresiones aritméticas. Consideren que no se pueden realizar divisiones entre cero. Por ejemplo: 
+     
+      ```lisp
+      > (/ 20 2)
+      10
+      > (/ 10 0)
+      error: División entre cero
+      ``` \\
+      
+      $\begin{gathered} \frac{e_1 \Rightarrow \text{Num}(n_1) \quad e_2 \Rightarrow \text{Num}(n_2) \quad n_2 \neq 0}{\text{Div}(e_1, e_2) \Rightarrow \text{Num}(n_1 / n_2)} 
+      \end{gathered}$\\
+
+      (Div (Num 20) (Num 2)) = Num 10\\
+      
+   - Especificar un nuevo constructor `add1` que dada una expresión, incrementa en uno su valor. Por ejemplo:\\
+     
+      ```lisp
+      > (add1 10)
+      11
+      ``` \\
+
+      $\begin{gathered} \frac{e \Rightarrow \text{Num}(n)}{\text{Add1}(e) \Rightarrow \text{Num}(n + 1)} \end{gathered}$\\
+
+      (Add1 (Num 10)) = Num 11\\
+
+      
+   - Especificar un nuevo constructor `sub1` que dada una expresión, decrementa en uno su valor. Por ejemplo: \\
+     
+      ```lisp
+      > (sub1 10)
+      9
+      ```\\\\
+      
+      Semantica Natural:\\
+      
+      $\begin{gathered} \frac{i \Rightarrow \text{Num}(d)}{\text{Sub1}(i) \Rightarrow \text{Num}(d-1)} \end{gathered}$\\\\
+
+      Semantica Estructural:\\
+   
+   $\begin{gathered} \frac{i \longrightarrow d}{\text{Sub1}(i) \longrightarrow \text{Sub1}(d)} \end{gathered}$\\
+
+   $\begin{gathered} \frac{}{\text{Sub1}(Num(i)) \longrightarrow \text{Num}(i-1)} \end{gathered}$\\
+      
+   - Especificar un nuevo constructor `sqrt` que dada una expresión, obtiene la raíz cuadrada de dicha expresión. Consideren que no se pueden calcular raíces cuadradas de números negativos. Por ejemplo: \\
+     
+      ```lisp
+      > (sqrt 81)
+      9
+      > (sqrt -2)
+      error: Raíz negativa
+      ```
+      \\\\
+   Semantica Natural:\\
+   
+   $\begin{gathered} \frac{i \Rightarrow \text{Num}(d)}{\text{Sqrt}(i) \Rightarrow \text{Num}(\sqrt{d})} \end{gathered}$\\\\
+
+    Semantica Estructural:\\
+   
+   $\begin{gathered} \frac{i \longrightarrow d}{\text{Sqrt}(i) \longrightarrow \text{Sqrt}(d)} \end{gathered}$\\
+
+   $\begin{gathered} \frac{i \geq 0}{\text{Sqrt}(Num(i)) \longrightarrow \text{Num}(\sqrt{i})} \end{gathered}$\\
+
+   $\begin{gathered} \frac{i < 0}{\text{Sqrt}(Num(i)) \longrightarrow \text{Error: Raiz negativa}} \end{gathered}$\\
+
+    
+\end{enumerate}
+
+
+\end{document}
